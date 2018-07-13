@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="">
+  <ion-slides spinner pager autoplay="3000" loop="true" speed="500">
+
+    <ion-slide>
+      <img src="assets/imgs/kaslogo.png" />
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/smarthome.png" />
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/infowarga.png" />
+    </ion-slide>
+
+  </ion-slides>
+  <br />
+  <div padding style="text-align:center;">
+    <div style="padding-left:20px;text-align:left;max-width:300px;margin: 0 auto;">
+    <div id="MenuIconLoggedIn" *ngIf="homeloggedin">
+    <button ion-button outline color="slave" (click)="goBayar()">
+      <img ion-img src="assets/imgs/barcode.png" />
+      Kas Online
+    </button>
+    <button ion-button outline color="slave" (click)="doAlert()">
+      <img ion-img src="assets/imgs/policeman.png" />
+      Security Check
+    </button>
+    <button ion-button outline color="slave" (click)="doAlert()">
+      <img ion-img src="assets/imgs/megaphone.png" />
+      Visitor Check
+    </button>
+    <button ion-button outline color="slave" (click)="doAlert()">
+      <!--goExplore-->
+      <img ion-img src="assets/imgs/cctv.png" />
+      CCTV
+    </button>
+    <button ion-button outline color="slave" (click)="doAlert()">
+      <img ion-img src="assets/imgs/smart-house.png" />
+      Smart Home
+    </button>
+    <button ion-button outline color="slave" (click)="doAlert()">
+      <img ion-img src="assets/imgs/information.png" />
+      Info Warga
+    </button>
+    </div>
+    <a ion-button outline color="slave" target="_blank" href="http://google.co.id">
+      <img ion-img src="assets/imgs/chrome.png" />
+      <b>Pencarian</b>
+    </a>
+    <button ion-button outline color="slave" (click)="openWithInAppBrowser('http://m.jasamargalive.com')">
+      <img ion-img src="assets/imgs/jsm.png" />
+      <b>Jasamarga</b>
+    </button>
+    <a ion-button outline color="slave" target="_blank" href="http://lewatmana.com">
+      <img ion-img src="assets/imgs/turn.png" />
+      <b>Lewatmana</b>
+    </a>
+    <a ion-button outline color="slave" target="_blank" href="http://rttmc.dephub.go.id/rttmc/m/page/cctv">
+      <img ion-img src="assets/imgs/traffic.png" />
+      <b>Dishub Traffic</b>
+    </a>
+    <a ion-button outline color="slave" target="_blank" href="http://www.trafi.com/id/jakarta">
+      <img ion-img src="assets/imgs/bus.png" />
+      <b>Transportasi</b>
+    </a>
+  </div>
+  </div>
+</ion-content>
+

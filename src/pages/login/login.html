@@ -1,0 +1,48 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="background">
+  <ion-card>
+    <ion-card-header>
+      Login Form
+    </ion-card-header>
+    <ion-card-content>
+    <form #loginForm="ngForm" novalidate>
+      <ion-list no-line>
+        <ion-item>
+          <ion-label stacked>Username</ion-label>
+          <ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off"
+        	pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"  required>
+				  </ion-input>
+        </ion-item>
+        <p ion-text [hidden]="username.valid || submitted == false" color="danger" padding-left>
+            Username is required and must be a valid email address
+          </p>
+        <ion-item>
+          <ion-label stacked>Password</ion-label>
+          <ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required>
+          </ion-input>
+        </ion-item>
+        <a>Lupa user login?<b>Bantuan untuk login</b></a>
+        <button ion-button block outline color="light" (click)="onLogin(loginForm)" type="submit">Login</button>
+        <a>OR</a>
+        <button ion-button block color="facebook">
+          <ion-icon name="logo-facebook">Login with facebook</ion-icon>
+        </button>
+      </ion-list>
+      </form>
+    </ion-card-content>
+  </ion-card>
+  <button ion-button clear full color="light">Tidak punya account? Sign up</button>
+</ion-content>

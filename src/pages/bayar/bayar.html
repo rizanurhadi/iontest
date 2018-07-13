@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>Konfirmasi Pembayaran</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content class="background" text-center>
+      <ion-card>
+          <ion-card-header>
+              Masukan Informasi Pembayaran Anda
+            </ion-card-header>
+          <ion-card-content>
+              <form #bayarForm="ngForm" (ngSubmit)="submitBayar(bayarForm)" novalidate>
+                  <ion-list>
+                    <ion-item>
+                      <ion-label color="primary">ID Warga</ion-label>
+                      <ion-input [(ngModel)]="bayar.id_warga" #id_warga="ngModel" name="id_warga" type="text" ></ion-input>
+                    </ion-item>
+              
+                    <ion-item>
+                        <ion-label color="primary">Bank</ion-label>
+                        <ion-select [(ngModel)]="bayar.id_bank" #id_bank="ngModel" name="id_bank" >
+                            <ion-option *ngFor="let option of bankKeys(bankOpt)">
+                                {{ bankOpt[option] }}
+                            </ion-option>
+                        </ion-select>
+                      </ion-item>
+              
+                    <ion-item>
+                        <ion-label color="primary" >No Rekening</ion-label>
+                        <ion-input placeholder="Text Input" [(ngModel)]="bayar.norek" #norek="ngModel" name="norek"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label color="primary" >Bukti Pembayaran</ion-label>
+                        <ion-input placeholder="Text Input" [(ngModel)]="bayar.bukti" #bukti="ngModel" name="bukti"></ion-input>
+                    </ion-item>
+              
+                    <button ion-button color="light"  type="submit" style="width:200px;font-size:12px" >Submit</button>
+                  </ion-list>
+                  </form>
+            </ion-card-content>
+      </ion-card>
+
+    
+  </ion-content>
