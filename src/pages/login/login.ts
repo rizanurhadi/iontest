@@ -82,7 +82,7 @@ export class LoginPage {
                 this.storage.set('hasLoggedIn', true);
                 
                 this.storage.set('tokenauth', data["data"]["token"]);
-                //console.log(data.data.token);
+                console.log( data["data"]["token"]);
                 this.events.publish('user:login');
                 this.navCtrl.setRoot(HomeTabsPage);
               } else{

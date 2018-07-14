@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient,HttpErrorResponse,HttpHeaders } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
-
+import { BayarPage } from '../pages/bayar/bayar';
 // import { Observable } from 'rxjs';
 // import { catchError } from 'rxjs/operators';
 const httpOptions = {
@@ -13,12 +13,7 @@ const httpOptions = {
   })
 };
 
-const httpOptionsAuth = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': 'my-auth-token'
-  })
-};
+
 
 
 export interface LoginForm {
@@ -39,7 +34,7 @@ export class UserData {
   _favorites: string[] = [];
   hosturl= 'localhost:8000';
   loginurl = 'http://'+this.hosturl+'/api/auth/login';  // URL to web api
-  bayarapi = 'http://'+this.hosturl+'/api/iuran'
+  bayarapi = 'http://'+this.hosturl+'/api/auth/iuran'
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
 
@@ -93,11 +88,13 @@ export class UserData {
     });
   };
 
-  getTokenStorage(): Promise<string> {
+  getTokenStorage() : Promise<string>  {
     return this.storage.get('tokenauth').then((value) => {
-      return value;
+     return value;
     });
   };
+
+  
 
   hasLoggedIn(): Promise<boolean> {
     return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
@@ -126,12 +123,40 @@ export class UserData {
     //return '{"message":"token_generated","data":{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNTMxMzE5NzM4LCJleHAiOjE1MzEzMjMzMzgsIm5iZiI6MTUzMTMxOTczOCwianRpIjoieTVIQWd4ZUNoeHFtcnVBcCJ9.xg64SDFry_yzNrw1xn5PkB3OLBQlWgkVnece0c4o0Zs"}}'
   }
 
-  postBayar(bayarform: bayarForm){
-    this.getTokenStorage().then((mytoken)=>{
-      httpOptionsAuth.headers.set('Authorization',mytoken);
+  postBayar(bayarform: bayarForm, mypage: BayarPage){
+   this.getTokenStorage().then((mytoken)=>{
+    let requestOptions =    {                                                                                                                                                                                 
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': 'Bearer ' + mytoken
+        }), 
+      }; 
+      this.http.post(this.bayarapi, bayarform,requestOptions)
+      .subscribe((data : any) => {
+        //alert(JSON.stringify(data));
+        if(data) {
+          if(mypage.loading){ mypage.loading.dismiss(); mypage.loading = null; }
+          
+          mypage.events.publish('user:bayar');
+          mypage.navCtrl.pop();
+        } else{
+          mypage.showalert(data["message"]);
+        }
+        
+      },
+      (error : any)=> {
+        if(mypage.loading){ mypage.loading.dismiss(); mypage.loading = null; }
+        mypage.showalert(error.error.message);
+        
+      }
+    
+    ); 
     });
-    console.log(httpOptionsAuth);
-      return this.http.post(this.bayarapi, bayarform,httpOptionsAuth);
+
+    
+    
+    
+      
     
   }
  

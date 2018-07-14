@@ -14,28 +14,34 @@
                   <ion-list>
                     <ion-item>
                       <ion-label color="primary">ID Warga</ion-label>
-                      <ion-input [(ngModel)]="bayar.id_warga" #id_warga="ngModel" name="id_warga" type="text" ></ion-input>
+                      <ion-input [(ngModel)]="bayar.id_warga" #id_warga="ngModel" name="id_warga" type="text" required></ion-input>
                     </ion-item>
-              
+                    <p ion-text [hidden]="id_warga.valid || submitted == false" color="danger" padding-left>
+                        ID Warga is required 
+                      </p>
                     <ion-item>
                         <ion-label color="primary">Bank</ion-label>
-                        <ion-select [(ngModel)]="bayar.id_bank" #id_bank="ngModel" name="id_bank" >
-                            <ion-option *ngFor="let option of bankKeys(bankOpt)">
+                        <ion-select [(ngModel)]="bayar.id_bank" #id_bank="ngModel" name="id_bank" required >
+                            <ion-option *ngFor="let option of bankKeys(bankOpt)" [value] = "option">
                                 {{ bankOpt[option] }}
                             </ion-option>
                         </ion-select>
                       </ion-item>
-              
+                      <p ion-text [hidden]="id_bank.valid || submitted == false" color="danger" padding-left>
+                        Bank is required 
+                      </p>
                     <ion-item>
                         <ion-label color="primary" >No Rekening</ion-label>
-                        <ion-input placeholder="Text Input" [(ngModel)]="bayar.norek" #norek="ngModel" name="norek"></ion-input>
+                        <ion-input  [(ngModel)]="bayar.norek" #norek="ngModel" name="norek" required></ion-input>
                     </ion-item>
-
+                    <p ion-text [hidden]="norek.valid || submitted == false" color="danger" padding-left>
+                        No Rekening is required 
+                      </p>
                     <ion-item>
                         <ion-label color="primary" >Bukti Pembayaran</ion-label>
-                        <ion-input placeholder="Text Input" [(ngModel)]="bayar.bukti" #bukti="ngModel" name="bukti"></ion-input>
+                        <ion-input  [(ngModel)]="bayar.bukti" #bukti="ngModel" name="bukti"></ion-input>
                     </ion-item>
-              
+                   
                     <button ion-button color="light"  type="submit" style="width:200px;font-size:12px" >Submit</button>
                   </ion-list>
                   </form>

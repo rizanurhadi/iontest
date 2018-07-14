@@ -160,7 +160,7 @@ var LoginPage = /** @class */ (function () {
                     }
                     _this.storage.set('hasLoggedIn', true);
                     _this.storage.set('tokenauth', data["data"]["token"]);
-                    //console.log(data.data.token);
+                    console.log(data["data"]["token"]);
                     _this.events.publish('user:login');
                     _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_4__pages_hometabs_hometabs__["a" /* HomeTabsPage */]);
                 }
@@ -308,7 +308,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var HomePage = /** @class */ (function () {
-    function HomePage(theInAppBrowser, events, navCtrl, BarcodeScanner, userData, alerCtrl) {
+    function HomePage(toastCtrl, theInAppBrowser, events, navCtrl, BarcodeScanner, userData, alerCtrl) {
+        this.toastCtrl = toastCtrl;
         this.theInAppBrowser = theInAppBrowser;
         this.events = events;
         this.navCtrl = navCtrl;
@@ -336,10 +337,10 @@ var HomePage = /** @class */ (function () {
         };
     }
     HomePage.prototype.ionViewDidLoad = function () {
-        var _this = this;
         // this.userData.hasLoggedIn().then((hasLoggedIn) => {
         //   this.homeloggedin ===true;
         // });
+        var _this = this;
         this.listenToLoginEvents();
         this.userData.hasLoggedIn().then(function (hasLoggedIn) {
             _this.enableMenu(hasLoggedIn === true);
@@ -413,7 +414,8 @@ var HomePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"D:\nodeapp\ionicapp\HasApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-toolbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>\n\n      Home\n\n    </ion-title>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n<ion-content class="">\n\n  <ion-slides spinner pager autoplay="3000" loop="true" speed="500">\n\n\n\n    <ion-slide>\n\n      <img src="assets/imgs/kaslogo.png" />\n\n    </ion-slide>\n\n\n\n    <ion-slide>\n\n      <img src="assets/imgs/smarthome.png" />\n\n    </ion-slide>\n\n\n\n    <ion-slide>\n\n      <img src="assets/imgs/infowarga.png" />\n\n    </ion-slide>\n\n\n\n  </ion-slides>\n\n  <br />\n\n  <div padding style="text-align:center;">\n\n    <div style="padding-left:20px;text-align:left;max-width:300px;margin: 0 auto;">\n\n    <div id="MenuIconLoggedIn" *ngIf="homeloggedin">\n\n    <button ion-button outline color="slave" (click)="goBayar()">\n\n      <img ion-img src="assets/imgs/barcode.png" />\n\n      Kas Online\n\n    </button>\n\n    <button ion-button outline color="slave" (click)="doAlert()">\n\n      <img ion-img src="assets/imgs/policeman.png" />\n\n      Security Check\n\n    </button>\n\n    <button ion-button outline color="slave" (click)="doAlert()">\n\n      <img ion-img src="assets/imgs/megaphone.png" />\n\n      Visitor Check\n\n    </button>\n\n    <button ion-button outline color="slave" (click)="doAlert()">\n\n      <!--goExplore-->\n\n      <img ion-img src="assets/imgs/cctv.png" />\n\n      CCTV\n\n    </button>\n\n    <button ion-button outline color="slave" (click)="doAlert()">\n\n      <img ion-img src="assets/imgs/smart-house.png" />\n\n      Smart Home\n\n    </button>\n\n    <button ion-button outline color="slave" (click)="doAlert()">\n\n      <img ion-img src="assets/imgs/information.png" />\n\n      Info Warga\n\n    </button>\n\n    </div>\n\n    <a ion-button outline color="slave" target="_blank" href="http://google.co.id">\n\n      <img ion-img src="assets/imgs/chrome.png" />\n\n      <b>Pencarian</b>\n\n    </a>\n\n    <button ion-button outline color="slave" (click)="openWithInAppBrowser(\'http://m.jasamargalive.com\')">\n\n      <img ion-img src="assets/imgs/jsm.png" />\n\n      <b>Jasamarga</b>\n\n    </button>\n\n    <a ion-button outline color="slave" target="_blank" href="http://lewatmana.com">\n\n      <img ion-img src="assets/imgs/turn.png" />\n\n      <b>Lewatmana</b>\n\n    </a>\n\n    <a ion-button outline color="slave" target="_blank" href="http://rttmc.dephub.go.id/rttmc/m/page/cctv">\n\n      <img ion-img src="assets/imgs/traffic.png" />\n\n      <b>Dishub Traffic</b>\n\n    </a>\n\n    <a ion-button outline color="slave" target="_blank" href="http://www.trafi.com/id/jakarta">\n\n      <img ion-img src="assets/imgs/bus.png" />\n\n      <b>Transportasi</b>\n\n    </a>\n\n  </div>\n\n  </div>\n\n</ion-content>\n\n\n\n'/*ion-inline-end:"D:\nodeapp\ionicapp\HasApp\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_8__ionic_native_in_app_browser__["a" /* InAppBrowser */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_8__ionic_native_in_app_browser__["a" /* InAppBrowser */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__["a" /* BarcodeScanner */],
@@ -497,7 +499,7 @@ var BayarPage = /** @class */ (function () {
         this.storage = storage;
         this.navCtrl = navCtrl;
         this.userData = userData;
-        this.bayar = { id_user: '1', id_warga: '1', id_bank: '1', norek: '1', bukti: '1' };
+        this.bayar = { id_user: '', id_warga: '', id_bank: '', norek: '', bukti: '' };
         this.submitted = false;
         this.bankKeys = Object.keys;
         this.bankOpt = {};
@@ -529,31 +531,10 @@ var BayarPage = /** @class */ (function () {
     };
     // end refactoring alert and loading module
     BayarPage.prototype.submitBayar = function (form) {
-        var _this = this;
         this.submitted = true;
         if (form.valid) {
-            this.userData.postBayar(this.bayar)
-                .subscribe(function (data) {
-                //alert(JSON.stringify(data));
-                if (data) {
-                    if (_this.loading) {
-                        _this.loading.dismiss();
-                        _this.loading = null;
-                    }
-                    console.log(data);
-                    _this.navCtrl.pop();
-                }
-                else {
-                    _this.showalert(data["message"]);
-                }
-            }, function (error) {
-                if (_this.loading) {
-                    _this.loading.dismiss();
-                    _this.loading = null;
-                }
-                _this.showalert(error.error.message);
-                //alert(JSON.stringify(error.error));
-            });
+            this.showLoading();
+            this.userData.postBayar(this.bayar, this);
         }
     };
     BayarPage.prototype.populateBank = function () {
@@ -561,7 +542,7 @@ var BayarPage = /** @class */ (function () {
     };
     BayarPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-bayar',template:/*ion-inline-start:"D:\nodeapp\ionicapp\HasApp\src\pages\bayar\bayar.html"*/'<ion-header>\n\n    <ion-navbar>\n\n      <ion-title>Konfirmasi Pembayaran</ion-title>\n\n    </ion-navbar>\n\n  </ion-header>\n\n  \n\n  <ion-content class="background" text-center>\n\n      <ion-card>\n\n          <ion-card-header>\n\n              Masukan Informasi Pembayaran Anda\n\n            </ion-card-header>\n\n          <ion-card-content>\n\n              <form #bayarForm="ngForm" (ngSubmit)="submitBayar(bayarForm)" novalidate>\n\n                  <ion-list>\n\n                    <ion-item>\n\n                      <ion-label color="primary">ID Warga</ion-label>\n\n                      <ion-input [(ngModel)]="bayar.id_warga" #id_warga="ngModel" name="id_warga" type="text" ></ion-input>\n\n                    </ion-item>\n\n              \n\n                    <ion-item>\n\n                        <ion-label color="primary">Bank</ion-label>\n\n                        <ion-select [(ngModel)]="bayar.id_bank" #id_bank="ngModel" name="id_bank" >\n\n                            <ion-option *ngFor="let option of bankKeys(bankOpt)">\n\n                                {{ bankOpt[option] }}\n\n                            </ion-option>\n\n                        </ion-select>\n\n                      </ion-item>\n\n              \n\n                    <ion-item>\n\n                        <ion-label color="primary" >No Rekening</ion-label>\n\n                        <ion-input placeholder="Text Input" [(ngModel)]="bayar.norek" #norek="ngModel" name="norek"></ion-input>\n\n                    </ion-item>\n\n\n\n                    <ion-item>\n\n                        <ion-label color="primary" >Bukti Pembayaran</ion-label>\n\n                        <ion-input placeholder="Text Input" [(ngModel)]="bayar.bukti" #bukti="ngModel" name="bukti"></ion-input>\n\n                    </ion-item>\n\n              \n\n                    <button ion-button color="light"  type="submit" style="width:200px;font-size:12px" >Submit</button>\n\n                  </ion-list>\n\n                  </form>\n\n            </ion-card-content>\n\n      </ion-card>\n\n\n\n    \n\n  </ion-content>'/*ion-inline-end:"D:\nodeapp\ionicapp\HasApp\src\pages\bayar\bayar.html"*/,
+            selector: 'page-bayar',template:/*ion-inline-start:"D:\nodeapp\ionicapp\HasApp\src\pages\bayar\bayar.html"*/'<ion-header>\n\n    <ion-navbar>\n\n      <ion-title>Konfirmasi Pembayaran</ion-title>\n\n    </ion-navbar>\n\n  </ion-header>\n\n  \n\n  <ion-content class="background" text-center>\n\n      <ion-card>\n\n          <ion-card-header>\n\n              Masukan Informasi Pembayaran Anda\n\n            </ion-card-header>\n\n          <ion-card-content>\n\n              <form #bayarForm="ngForm" (ngSubmit)="submitBayar(bayarForm)" novalidate>\n\n                  <ion-list>\n\n                    <ion-item>\n\n                      <ion-label color="primary">ID Warga</ion-label>\n\n                      <ion-input [(ngModel)]="bayar.id_warga" #id_warga="ngModel" name="id_warga" type="text" required></ion-input>\n\n                    </ion-item>\n\n                    <p ion-text [hidden]="id_warga.valid || submitted == false" color="danger" padding-left>\n\n                        ID Warga is required \n\n                      </p>\n\n                    <ion-item>\n\n                        <ion-label color="primary">Bank</ion-label>\n\n                        <ion-select [(ngModel)]="bayar.id_bank" #id_bank="ngModel" name="id_bank" required >\n\n                            <ion-option *ngFor="let option of bankKeys(bankOpt)" [value] = "option">\n\n                                {{ bankOpt[option] }}\n\n                            </ion-option>\n\n                        </ion-select>\n\n                      </ion-item>\n\n                      <p ion-text [hidden]="id_bank.valid || submitted == false" color="danger" padding-left>\n\n                        Bank is required \n\n                      </p>\n\n                    <ion-item>\n\n                        <ion-label color="primary" >No Rekening</ion-label>\n\n                        <ion-input  [(ngModel)]="bayar.norek" #norek="ngModel" name="norek" required></ion-input>\n\n                    </ion-item>\n\n                    <p ion-text [hidden]="norek.valid || submitted == false" color="danger" padding-left>\n\n                        No Rekening is required \n\n                      </p>\n\n                    <ion-item>\n\n                        <ion-label color="primary" >Bukti Pembayaran</ion-label>\n\n                        <ion-input  [(ngModel)]="bayar.bukti" #bukti="ngModel" name="bukti"></ion-input>\n\n                    </ion-item>\n\n                   \n\n                    <button ion-button color="light"  type="submit" style="width:200px;font-size:12px" >Submit</button>\n\n                  </ion-list>\n\n                  </form>\n\n            </ion-card-content>\n\n      </ion-card>\n\n\n\n    \n\n  </ion-content>'/*ion-inline-end:"D:\nodeapp\ionicapp\HasApp\src\pages\bayar\bayar.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_2__providers_user_data__["a" /* UserData */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
@@ -759,8 +740,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // prov
 
 var MyApp = /** @class */ (function () {
-    function MyApp(events, menu, loadingCtrl, platform, statusBar, splashScreen, userData, storage) {
+    function MyApp(toastCtrl, events, menu, loadingCtrl, platform, statusBar, splashScreen, userData, storage) {
         var _this = this;
+        this.toastCtrl = toastCtrl;
         this.events = events;
         this.menu = menu;
         this.loadingCtrl = loadingCtrl;
@@ -801,6 +783,9 @@ var MyApp = /** @class */ (function () {
     };
     MyApp.prototype.listenToLoginEvents = function () {
         var _this = this;
+        this.events.subscribe('user:bayar', function () {
+            _this.presentToast("Konfirmasi Pembayaran Telah disimpan");
+        });
         this.events.subscribe('user:login', function () {
             _this.enableMenu(true);
         });
@@ -817,6 +802,14 @@ var MyApp = /** @class */ (function () {
                 _this.enableMenu(false);
             }, 2000);
         });
+    };
+    MyApp.prototype.presentToast = function (message) {
+        var toast = this.toastCtrl.create({
+            message: message,
+            duration: 2000,
+            position: 'top'
+        });
+        toast.present();
     };
     MyApp.prototype.enableMenu = function (loggedIn) {
         //this.menu.enable(loggedIn, 'loggedInMenu');
@@ -845,7 +838,8 @@ var MyApp = /** @class */ (function () {
     MyApp = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"D:\nodeapp\ionicapp\HasApp\src\app\app.html"*/'<ion-menu [content]="content">\n\n  <ion-header>\n\n    <ion-toolbar>\n\n      <ion-title>Menu</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content>\n\n    <ion-list>\n\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n\n        {{p.title}}\n\n      </button>\n\n    </ion-list>\n\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n\n'/*ion-inline-end:"D:\nodeapp\ionicapp\HasApp\src\app\app.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */],
@@ -891,12 +885,6 @@ var httpOptions = {
         //'Authorization': 'my-auth-token'
     })
 };
-var httpOptionsAuth = {
-    headers: new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]({
-        'Content-Type': 'application/json',
-        'Authorization': 'my-auth-token'
-    })
-};
 var UserData = /** @class */ (function () {
     function UserData(events, storage, http) {
         this.events = events;
@@ -905,7 +893,7 @@ var UserData = /** @class */ (function () {
         this._favorites = [];
         this.hosturl = 'localhost:8000';
         this.loginurl = 'http://' + this.hosturl + '/api/auth/login'; // URL to web api
-        this.bayarapi = 'http://' + this.hosturl + '/api/iuran';
+        this.bayarapi = 'http://' + this.hosturl + '/api/auth/iuran';
         this.HAS_LOGGED_IN = 'hasLoggedIn';
         this.HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
     }
@@ -981,20 +969,44 @@ var UserData = /** @class */ (function () {
         // using string only without server
         //return '{"message":"token_generated","data":{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNTMxMzE5NzM4LCJleHAiOjE1MzEzMjMzMzgsIm5iZiI6MTUzMTMxOTczOCwianRpIjoieTVIQWd4ZUNoeHFtcnVBcCJ9.xg64SDFry_yzNrw1xn5PkB3OLBQlWgkVnece0c4o0Zs"}}'
     };
-    UserData.prototype.postBayar = function (bayarform) {
+    UserData.prototype.postBayar = function (bayarform, mypage) {
+        var _this = this;
         this.getTokenStorage().then(function (mytoken) {
-            httpOptionsAuth.headers.set('Authorization', mytoken);
+            var requestOptions = {
+                headers: new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + mytoken
+                }),
+            };
+            _this.http.post(_this.bayarapi, bayarform, requestOptions)
+                .subscribe(function (data) {
+                //alert(JSON.stringify(data));
+                if (data) {
+                    if (mypage.loading) {
+                        mypage.loading.dismiss();
+                        mypage.loading = null;
+                    }
+                    mypage.events.publish('user:bayar');
+                    mypage.navCtrl.pop();
+                }
+                else {
+                    mypage.showalert(data["message"]);
+                }
+            }, function (error) {
+                if (mypage.loading) {
+                    mypage.loading.dismiss();
+                    mypage.loading = null;
+                }
+                mypage.showalert(error.error.message);
+            });
         });
-        console.log(httpOptionsAuth);
-        return this.http.post(this.bayarapi, bayarform, httpOptionsAuth);
     };
     UserData = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* Events */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* Events */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _c || Object])
     ], UserData);
     return UserData;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=user-data.js.map

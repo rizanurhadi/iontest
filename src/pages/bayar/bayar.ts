@@ -7,6 +7,7 @@ import { Events } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 
 
+
 export interface bayarForm {
     id_user:string,
     id_warga:string,
@@ -23,7 +24,7 @@ export interface bayarForm {
 
   export class BayarPage {
 
-    bayar: bayarForm = { id_user: '1', id_warga: '1', id_bank:'1' ,norek:'1',bukti:'1' };
+    bayar: bayarForm = { id_user: '', id_warga: '', id_bank:'' ,norek:'',bukti:'' };
     submitted = false;
     bankKeys = Object.keys;
     bankOpt = {};  
@@ -63,26 +64,11 @@ export interface bayarForm {
     // end refactoring alert and loading module
     submitBayar(form: NgForm){
       this.submitted = true;
-      if (form.valid) {
-        this.userData.postBayar(this.bayar)
-        .subscribe((data : any) => {
-          //alert(JSON.stringify(data));
-          if(data) {
-            if(this.loading){ this.loading.dismiss(); this.loading = null; }
-            console.log(data);
-            this.navCtrl.pop();
-          } else{
-            this.showalert(data["message"]);
-          }
-          
-        },
-        (error : any)=> {
-          if(this.loading){ this.loading.dismiss(); this.loading = null; }
-          this.showalert(error.error.message);
-          //alert(JSON.stringify(error.error));
-        }
-      
-      );
+
+      if (form.valid ) {
+        this.showLoading();
+        this.userData.postBayar(this.bayar, this);
+        
     }
     }
 

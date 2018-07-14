@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, Events } from 'ionic-angular';
+import { NavController, AlertController, Events,ToastController } from 'ionic-angular';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 import { ExplorePage } from '../explore/explore';
@@ -37,6 +37,7 @@ export class HomePage {
     fullscreen : 'yes',//Windows only    
 };
   constructor(
+    public toastCtrl:ToastController ,
     private theInAppBrowser: InAppBrowser,
     public events: Events,
     public navCtrl: NavController,
@@ -51,6 +52,7 @@ export class HomePage {
     // this.userData.hasLoggedIn().then((hasLoggedIn) => {
     //   this.homeloggedin ===true;
     // });
+    
     this.listenToLoginEvents();
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
       this.enableMenu(hasLoggedIn === true);
@@ -106,8 +108,9 @@ export class HomePage {
   checkloggedin(){
     
   }
-
+ 
   listenToLoginEvents() {
+   
     this.events.subscribe('user:login', () => {
       this.enableMenu(true);
       

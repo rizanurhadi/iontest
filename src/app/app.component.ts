@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Events, MenuController, Nav, Platform, LoadingController } from 'ionic-angular';
+import { Events, MenuController, Nav, Platform, LoadingController, ToastController  } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -25,6 +25,7 @@ export class MyApp {
   pages: Array<{ title: string, component: any,logsOut?: boolean; }>;
 
   constructor(
+    public toastCtrl:ToastController ,
     public events: Events,
     public menu: MenuController,
     public loadingCtrl: LoadingController,
@@ -67,9 +68,11 @@ export class MyApp {
   }
 
   listenToLoginEvents() {
+    this.events.subscribe('user:bayar', () => {
+      this.presentToast("Konfirmasi Pembayaran Telah disimpan");
+    });
     this.events.subscribe('user:login', () => {
       this.enableMenu(true);
-      
     });
 
     this.events.subscribe('user:signup', () => {
@@ -92,6 +95,14 @@ export class MyApp {
     });
   }
 
+  presentToast(message) {
+    const toast = this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      position:'top'
+    });
+    toast.present();
+  }
 
   enableMenu(loggedIn: boolean) {
     //this.menu.enable(loggedIn, 'loggedInMenu');
