@@ -6,14 +6,15 @@ import { Events } from 'ionic-angular';
 
 import { NgForm } from '@angular/forms';
 
-
-
 export interface bayarForm {
-    id_user:string,
-    id_warga:string,
-    id_bank:string,
+   id_user:string,
+    mst_warga_id:string,
+    warga_id:string,
+    bank_id:string,
     norek:string,
     bukti:string
+    nama:string,
+    alamat:string,
 }
 
 @Component({
@@ -24,7 +25,7 @@ export interface bayarForm {
 
   export class BayarPage {
 
-    bayar: bayarForm = { id_user: '', id_warga: '', id_bank:'' ,norek:'',bukti:'' };
+    bayar: bayarForm = { mst_warga_id:'',id_user:'',warga_id: '', bank_id:'' ,norek:'',bukti:'',nama:'',alamat:'' };
     submitted = false;
     bankKeys = Object.keys;
     bankOpt = {};  
@@ -38,6 +39,7 @@ export interface bayarForm {
         public userData: UserData, ){
         
         this.populateBank();
+        this.populateProfile();
     }
     // refactoring idea : need loading and alert module because duplication in login ts
     loading: any = this.loadingCtrl.create({
@@ -66,6 +68,8 @@ export interface bayarForm {
       this.submitted = true;
 
       if (form.valid ) {
+        this.bayar.warga_id = this.bayar.mst_warga_id
+        console.log(this.bayar);
         this.showLoading();
         this.userData.postBayar(this.bayar, this);
         
@@ -73,6 +77,16 @@ export interface bayarForm {
     }
 
     populateBank(){
-        this.bankOpt = { 1: 'BCA', 2: 'Mandiri', 3:'BNI' };
+        //this.bankOpt = { 1: 'BCA', 2: 'Mandiri', 3:'BNI' };
+        this.userData.getBank(this);
+    }
+    populateProfile(){
+      this.storage.get('profile').then((value) => {
+        this.bayar.id_user = value["id_user"];
+        this.bayar.warga_id = value["warga_id"];
+        this.bayar.nama = value["nama"];
+        this.bayar.alamat = value["alamat"];
+        this.bayar.mst_warga_id = value["mst_warga_id"];
+      });
     }
   }

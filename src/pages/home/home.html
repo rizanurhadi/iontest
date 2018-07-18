@@ -28,23 +28,27 @@
   <br />
   <div padding style="text-align:center;">
     <div style="padding-left:20px;text-align:left;max-width:300px;margin: 0 auto;">
-    <div id="MenuIconLoggedIn" *ngIf="homeloggedin">
+    <span id="MenuIconLoggedIn" *ngIf="homeloggedin">
     <button ion-button outline color="slave" (click)="goBayar()">
       <img ion-img src="assets/imgs/barcode.png" />
-      Kas Online
+      Kas Warga
+    </button>
+    <button ion-button outline color="slave" (click)="openWithInAppBrowser('http://ngcsmartwarga.info/kaswarga/')">
+      <img ion-img src="assets/imgs/checklist.png" />
+      Konfirmasi Bayar
     </button>
     <button ion-button outline color="slave" (click)="doAlert()">
       <img ion-img src="assets/imgs/policeman.png" />
-      Security Check
+      Skurity Ngider
     </button>
     <button ion-button outline color="slave" (click)="doAlert()">
       <img ion-img src="assets/imgs/megaphone.png" />
-      Visitor Check
+      Buku Tamu
     </button>
     <button ion-button outline color="slave" (click)="doAlert()">
       <!--goExplore-->
       <img ion-img src="assets/imgs/cctv.png" />
-      CCTV
+      CCTV Lingkungan
     </button>
     <button ion-button outline color="slave" (click)="doAlert()">
       <img ion-img src="assets/imgs/smart-house.png" />
@@ -54,7 +58,7 @@
       <img ion-img src="assets/imgs/information.png" />
       Info Warga
     </button>
-    </div>
+  </span>
     <a ion-button outline color="slave" target="_blank" href="http://google.co.id">
       <img ion-img src="assets/imgs/chrome.png" />
       <b>Pencarian</b>
@@ -63,15 +67,15 @@
       <img ion-img src="assets/imgs/jsm.png" />
       <b>Jasamarga</b>
     </button>
-    <a ion-button outline color="slave" target="_blank" href="http://lewatmana.com">
+    <a ion-button outline color="slave" (click)="openWithInAppBrowser('http://lewatmana.com')">
       <img ion-img src="assets/imgs/turn.png" />
       <b>Lewatmana</b>
     </a>
-    <a ion-button outline color="slave" target="_blank" href="http://rttmc.dephub.go.id/rttmc/m/page/cctv">
+    <a ion-button outline color="slave" (click)="openWithInAppBrowser('http://rttmc.dephub.go.id/rttmc/m/page/cctv')">
       <img ion-img src="assets/imgs/traffic.png" />
       <b>Dishub Traffic</b>
     </a>
-    <a ion-button outline color="slave" target="_blank" href="http://www.trafi.com/id/jakarta">
+    <a ion-button outline color="slave" (click)="openWithInAppBrowser('http://www.trafi.com/id/jakarta')">
       <img ion-img src="assets/imgs/bus.png" />
       <b>Transportasi</b>
     </a>

@@ -31,7 +31,7 @@ export interface LoginResponse{
   providers: [  UserData ]
 })
 export class LoginPage {
-  login: UserOptions = { username: 'johndoe@example.com', password: 'johndoe' };
+  login: UserOptions = { username: 'admin', password: '123qwe' };
   submitted = false;
   
   constructor(
@@ -56,9 +56,9 @@ export class LoginPage {
     });
     this.loading.present();
   }
-  showalert(alertMessage){
+  showalert(alertMessage, title?){
     this.myalert = this.alertCtrl.create({
-      title: 'Warning',
+      title: 'Warning ' + title,
       message: alertMessage,
       buttons: ['Dismiss']
     });
@@ -73,34 +73,70 @@ export class LoginPage {
     this.submitted = true;
 
     if (form.valid) {
-      this.showloading();
-            this.userData.postLogin(this.login)
-            .subscribe(data=> {
+      // this.showloading();
+      // this.doMockLogin();
+      this.doPostLogin();
+      
+     
+    }
+  }
+
+  doMockLogin(){
+    this.showalert('Login Sukses');
+    this.storage.set('hasLoggedIn', true);
+    // set storage token, nama, alamat, warga_id, nohp,
+    this.storage.set('tokenauth', 'tokenready');
+    this.userData.setUserDataIntoStorageMock();
+    //console.log( data["data"]["token"]);
+    this.events.publish('user:login');
+    if(this.loading){ this.loading.dismiss(); this.loading = null; }
+    this.navCtrl.setRoot(HomeTabsPage);
+  }
+
+  doPostLogin(){
+    this.userData.postLogin(this.login)
+            .subscribe((data : any)=> {
               //alert(JSON.stringify(data));
-              if(data["data"]) {
+              if(data.data) {
                 if(this.loading){ this.loading.dismiss(); this.loading = null; }
                 this.storage.set('hasLoggedIn', true);
+                // set storage token, nama, alamat, warga_id, nohp,
+                this.storage.set('tokenauth', data.data.access_token).then(()=>{
+                  console.log('token : ' + data.data.access_token)
+                  this.userData.setUserDataIntoStorage();
+                  //console.log( data["data"]["token"]);
+                  this.events.publish('user:login');
+                  this.navCtrl.setRoot(HomeTabsPage);
+                });
                 
-                this.storage.set('tokenauth', data["data"]["token"]);
-                console.log( data["data"]["token"]);
-                this.events.publish('user:login');
-                this.navCtrl.setRoot(HomeTabsPage);
               } else{
-                this.showalert(data["message"]);
+                this.showalert(data.message);
               }
               
             },
             error=> {
               if(this.loading){ this.loading.dismiss(); this.loading = null; }
-              this.showalert(error["error"]["message"]);
+              let mystring = '';
+              let itemsProcessed = 0;
+              error.error.forEach((item,index,array)=>{
+                itemsProcessed++;
+                    mystring += '<ion-item>'+item.message+'</ion-item>';
+                    if(itemsProcessed === array.length) {
+                      this.showalert(this.cberrorArray(mystring), error.statusText);
+                    }
+              })
+              
               //alert(JSON.stringify(error.error));
             }
           
           );
       
-      
-     
-    }
+  }
+
+  cberrorArray(mystring){
+    return '<ion-list>' + mystring + '</ion-list>';
+    
+
   }
 
 }
