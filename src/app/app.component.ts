@@ -72,6 +72,7 @@ export class MyApp {
       this.presentToast("Konfirmasi Pembayaran Telah disimpan");
     });
     this.events.subscribe('user:login', () => {
+      this.presentToast("User Login Sukses");
       this.enableMenu(true);
     });
 
@@ -118,7 +119,7 @@ export class MyApp {
       this.pages = [
         { title: 'Home', component: HomeTabsPage },
         { title: 'Login', component: LoginPage },
-        { title: 'Registrasi', component: RegisterPage },
+        //{ title: 'Registrasi', component: RegisterPage },
         { title: 'About', component: AboutPage }
       ];
     }

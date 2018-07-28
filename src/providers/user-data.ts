@@ -4,6 +4,9 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
 import { BayarPage } from '../pages/bayar/bayar';
+
+
+
 // import { Observable } from 'rxjs';
 // import { catchError } from 'rxjs/operators';
 const httpOptions = {
@@ -25,21 +28,19 @@ export interface LoginForm {
   password: string;
 }
 // need to refactor this coz duplication in bayar.ts
+
 export interface bayarForm {
   id_user:string,
-  mst_warga_id:string,
-  warga_id:string,
-  bank_id:string,
+  idwrg:string,
+  idbank:string,
   norek:string,
-  bukti:string,
-  nama:string,
-  alamat:string,
+  bukti:string
 }
 
 @Injectable()
 export class UserData {
   _favorites: string[] = [];
-  hosturl= 'http://localhost/yii2app/basicapp/web';
+  hosturl= 'http://ngcsmartwarga.info/v1';
   loginurl = this.hosturl+'/api/login';  // URL to web api
   bayarapi = this.hosturl+'/api/iuran';
   bankapi = this.hosturl+'/api/bank';
@@ -140,13 +141,15 @@ export class UserData {
           'Authorization': 'Bearer ' + mytoken
         }), 
       }; 
-      //bayarform.warga_id = bayarform.mst_warga_id;
+      
+      //bayarform.idwrg = bayarform.mst_warga_id;
       this.http.post(this.bayarapi, bayarform,requestOptions)
       .subscribe((data : any) => {
         //alert(JSON.stringify(data));
         if(data) {
           if(mypage.loading){ mypage.loading.dismiss(); mypage.loading = null; }
-          
+          // upload request 
+          mypage.uploadImage(this.hosturl+'/api/upload',data["data"]["id"],mytoken);
           mypage.events.publish('user:bayar');
           mypage.navCtrl.pop();
         } else{
@@ -166,25 +169,26 @@ export class UserData {
     
   }
 
-  setUserDataIntoStorage(){
+  setUserDataIntoStorage($id){
     this.getTokenStorage().then((mytoken)=>{
       let requestOptions =    {                                                                                                                                                                                 
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
           'Authorization': 'Bearer ' + mytoken
-        }), 
+        })
+       
       }; console.log('Bearer ' + mytoken);
-      this.http.get(this.userapi,requestOptions)
+      this.http.get(this.userapi + '/?myid=' + $id,requestOptions)
         .subscribe((data :any)=> {
           if(data) {
-            console.log(data.warga);
-            // this.storage.set('profile', {
-            //   id_user:data["warga"]["user_id"],
-            //   mst_warga_id:data["warga"]["id"],
-            //   warga_id:data["warga"]["warga_id"],
-            //   nama:data["warga"]["nama"],
-            //   alamat:data["warga"]["alamat"],
-            // });
+            //console.log(data.warga);
+            this.storage.set('profile', {
+              id_user:data["data"]["warga"]["user_id"],
+              mst_warga_id:data["data"]["warga"]["idwrg"],
+              warga_id:data["data"]["warga"]["warga_id"],
+              nama:data["data"]["warga"]["nama"],
+              alamat:data["data"]["warga"]["alamat"],
+            });
             
           }else{
 
@@ -219,7 +223,7 @@ export class UserData {
             if(data) {
               if(mypage.loading){ mypage.loading.dismiss(); mypage.loading = null; }
               mypage.bankOpt = data.data.bank;
-              console.log(data.data.bank.nama_bank)
+              //console.log(data.data.bank.nama_bank)
             } else{
               mypage.showalert(data.message);
             }

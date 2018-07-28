@@ -4,53 +4,52 @@
     </ion-navbar>
   </ion-header>
   
-  <ion-content class="background" text-center>
+  <ion-content  text-center>
       <ion-card>
           <ion-card-header>
               Masukan Informasi Pembayaran Anda
             </ion-card-header>
           <ion-card-content>
-              <form #bayarForm="ngForm" (ngSubmit)="submitBayar(bayarForm)" novalidate>
+              <form #bayarForm="ngForm" (ngSubmit)="submitBayar(bayarForm)" novalidate (keydown.enter)="$event.preventDefault()">
                   <ion-list>
                     <ion-item>
-                      <ion-label color="primary">ID Warga</ion-label>
-                      <ion-input [(ngModel)]="bayar.warga_id" #warga_id="ngModel" name="warga_id" type="text" required></ion-input>
+                      <ion-label color="primary" stacked>Nama </ion-label>
+                      <ion-input type="text" value="{{userProf.nama}}" readonly></ion-input>
                     </ion-item>
-                    <p ion-text [hidden]="warga_id.valid || submitted == false" color="danger" padding-left>
-                        ID Warga is required 
-                      </p>
                     <ion-item>
-                        <ion-label color="primary">Bank</ion-label>
-                        <ion-select [(ngModel)]="bayar.bank_id" #bank_id="ngModel" name="bank_id" required >
+                      <ion-label color="primary" stacked>Alamat </ion-label>
+                      <ion-input type="text" value="{{userProf.alamat}}" readonly></ion-input>
+                    </ion-item>
+                    <ion-input [(ngModel)]="bayar.idwrg" #idwrg="ngModel" name="idwrg" type="text" readonly hidden></ion-input>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Pilih Bank</ion-label>
+                        <ion-select [(ngModel)]="bayar.idbank" #idbank="ngModel" name="idbank" required >
                             <ion-option *ngFor="let option of bankKeys(bankOpt)" [value] = "bankOpt[option]['id_bank'] ">
                                 {{ bankOpt[option]["nama_bank"] }}
                             </ion-option>
                         </ion-select>
                       </ion-item>
-                      <p ion-text [hidden]="bank_id.valid || submitted == false" color="danger" padding-left>
+                      <p ion-text [hidden]="idbank.valid || submitted == false" color="danger" padding-left>
                         Bank is required 
                       </p>
                     <ion-item>
-                        <ion-label color="primary" >No Rekening</ion-label>
+                        <ion-label color="primary" stacked>No Rekening</ion-label>
                         <ion-input  [(ngModel)]="bayar.norek" #norek="ngModel" name="norek" required></ion-input>
                     </ion-item>
                     <p ion-text [hidden]="norek.valid || submitted == false" color="danger" padding-left>
                         No Rekening is required 
                       </p>
-                    
-                        
-                        
-                    
-                    
+           
                     
                     <ion-item inset>
-                            <button ion-item type="button" icon-start>
-                                <ion-icon name="attach"></ion-icon>
+                            <button ion-item type="button" icon-start (click)="useCamera()">
+                                <ion-icon name="camera"></ion-icon>
                               Bukti Pembayaran
                             </button> 
                           </ion-item>
-                    <ion-input  [(ngModel)]="bayar.bukti" #bukti="ngModel" name="bukti" type="hidden"></ion-input>
-                        
+                    <ion-input  [(ngModel)]="bayar.bukti" #bukti="ngModel" name="bukti" type="text" hidden></ion-input>
+                    <br />
+                    <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
                    <br />
                     <button ion-button color="light"  type="submit" style="width:200px;font-size:12px" >Submit</button>
                   </ion-list>

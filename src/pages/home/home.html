@@ -1,3 +1,4 @@
+
 <ion-header>
   <ion-toolbar>
     <button ion-button menuToggle>
@@ -29,53 +30,53 @@
   <div padding style="text-align:center;">
     <div style="padding-left:20px;text-align:left;max-width:300px;margin: 0 auto;">
     <span id="MenuIconLoggedIn" *ngIf="homeloggedin">
-    <button ion-button outline color="slave" (click)="goBayar()">
+    <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;"  ion-button outline color="slave"  (click)="openWithInAppBrowser('http://ngcsmartwarga.info/kaswarga/')">
       <img ion-img src="assets/imgs/barcode.png" />
       Kas Warga
     </button>
-    <button ion-button outline color="slave" (click)="openWithInAppBrowser('http://ngcsmartwarga.info/kaswarga/')">
-      <img ion-img src="assets/imgs/checklist.png" />
+    <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="goBayar()" >
+      <img ion-img src="assets/imgs/checklist.png"  />
       Konfirmasi Bayar
     </button>
-    <button ion-button outline color="slave" (click)="doAlert()">
+    <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="doAlert()">
       <img ion-img src="assets/imgs/policeman.png" />
       Skurity Ngider
     </button>
-    <button ion-button outline color="slave" (click)="doAlert()">
+    <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="doAlert()">
       <img ion-img src="assets/imgs/megaphone.png" />
       Buku Tamu
     </button>
-    <button ion-button outline color="slave" (click)="doAlert()">
+    <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="doAlert()">
       <!--goExplore-->
       <img ion-img src="assets/imgs/cctv.png" />
       CCTV Lingkungan
     </button>
-    <button ion-button outline color="slave" (click)="doAlert()">
+    <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="doAlert()">
       <img ion-img src="assets/imgs/smart-house.png" />
       Smart Home
     </button>
-    <button ion-button outline color="slave" (click)="doAlert()">
+    <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="doAlert()">
       <img ion-img src="assets/imgs/information.png" />
       Info Warga
     </button>
   </span>
-    <a ion-button outline color="slave" target="_blank" href="http://google.co.id">
+    <a class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" target="_blank" href="http://google.co.id">
       <img ion-img src="assets/imgs/chrome.png" />
       <b>Pencarian</b>
     </a>
-    <button ion-button outline color="slave" (click)="openWithInAppBrowser('http://m.jasamargalive.com')">
+    <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="openWithInAppBrowser('http://m.jasamargalive.com')">
       <img ion-img src="assets/imgs/jsm.png" />
       <b>Jasamarga</b>
     </button>
-    <a ion-button outline color="slave" (click)="openWithInAppBrowser('http://lewatmana.com')">
+    <a class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="openWithInAppBrowser('http://lewatmana.com')">
       <img ion-img src="assets/imgs/turn.png" />
       <b>Lewatmana</b>
     </a>
-    <a ion-button outline color="slave" (click)="openWithInAppBrowser('http://rttmc.dephub.go.id/rttmc/m/page/cctv')">
+    <a class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="openWithInAppBrowser('http://rttmc.dephub.go.id/rttmc/m/page/cctv')">
       <img ion-img src="assets/imgs/traffic.png" />
       <b>Dishub Traffic</b>
     </a>
-    <a ion-button outline color="slave" (click)="openWithInAppBrowser('http://www.trafi.com/id/jakarta')">
+    <a class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="openWithInAppBrowser('http://www.trafi.com/id/jakarta')">
       <img ion-img src="assets/imgs/bus.png" />
       <b>Transportasi</b>
     </a>

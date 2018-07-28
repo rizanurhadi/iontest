@@ -22,6 +22,13 @@ import { UserData } from '../providers/user-data';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+// File Handler
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
+
+import {  ImageResizer  } from '@ionic-native/image-resizer';
 
 @NgModule({
   declarations: [
@@ -59,7 +66,12 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SplashScreen,
     UserData,
     InAppBrowser,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    ImageResizer,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    File,
+    Transfer,
+    Camera,
+    FilePath,
   ]
 })
 export class AppModule {}

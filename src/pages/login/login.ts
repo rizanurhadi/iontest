@@ -31,7 +31,7 @@ export interface LoginResponse{
   providers: [  UserData ]
 })
 export class LoginPage {
-  login: UserOptions = { username: 'admin', password: '123qwe' };
+  login: UserOptions = { username: '', password: '' };
   submitted = false;
   
   constructor(
@@ -73,7 +73,7 @@ export class LoginPage {
     this.submitted = true;
 
     if (form.valid) {
-      // this.showloading();
+      this.showloading();
       // this.doMockLogin();
       this.doPostLogin();
       
@@ -103,7 +103,7 @@ export class LoginPage {
                 // set storage token, nama, alamat, warga_id, nohp,
                 this.storage.set('tokenauth', data.data.access_token).then(()=>{
                   console.log('token : ' + data.data.access_token)
-                  this.userData.setUserDataIntoStorage();
+                  this.userData.setUserDataIntoStorage(data.data.your_id);
                   //console.log( data["data"]["token"]);
                   this.events.publish('user:login');
                   this.navCtrl.setRoot(HomeTabsPage);
@@ -114,17 +114,23 @@ export class LoginPage {
               }
               
             },
-            error=> {
+            (error : any)=> {
               if(this.loading){ this.loading.dismiss(); this.loading = null; }
               let mystring = '';
               let itemsProcessed = 0;
-              error.error.forEach((item,index,array)=>{
-                itemsProcessed++;
-                    mystring += '<ion-item>'+item.message+'</ion-item>';
-                    if(itemsProcessed === array.length) {
-                      this.showalert(this.cberrorArray(mystring), error.statusText);
-                    }
-              })
+              if(error.error){
+                //this.showalert(JSON.stringify(error));
+                error.error.forEach((item,index,array)=>{
+                  itemsProcessed++;
+                      mystring += '<ion-item>'+item.message+'</ion-item>';
+                      if(itemsProcessed === array.length) {
+                        this.showalert(this.cberrorArray(mystring), error.statusText);
+                      }
+                })
+              } else {
+                this.showalert(JSON.stringify(error));
+              }
+             
               
               //alert(JSON.stringify(error.error));
             }

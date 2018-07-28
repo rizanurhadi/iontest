@@ -4895,7 +4895,7 @@ optgroup,
 select {
   margin: 0;
   font: inherit;
-  color: #2c87d8;
+  color:inherit;
 }
 
 html input[type="button"],
@@ -5707,7 +5707,7 @@ ion-badge:empty {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
-  display: grid;
+  
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-flow: row nowrap;
@@ -6052,14 +6052,14 @@ button[disabled],
 .button-md {
   border-radius: 25px;
   overflow: hidden;
-  height: 7rem;
-  width:8rem;
-  font-size: 1rem;
+  height: 4.6rem;
+  
+  font-size: 1.4rem;
   font-family:arial;
-  -font-weight: 500;
-  -text-transform: uppercase;
+  /*font-weight: 500;
+  -text-transform: uppercase;*/
   color: #fff;
-  -background-color: #488aff;
+  /*background-color: #488aff;
   /*-webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -7313,7 +7313,7 @@ ion-card-content {
   border-radius: 2px;
   width: calc(100% - 20px);
   font-size: 1.4rem;
-  background: rgba(0, 0, 0, 0.15);
+    
   webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
@@ -14146,7 +14146,7 @@ ion-item-group .item-wrapper:last-child .item-ios .item-inner {
   font-weight: normal;
   text-transform: none;
   color: #000;
-  background-color: #8ed8ec;
+  -background-color: #8ed8ec;
   -webkit-box-shadow: none;
   box-shadow: none;
   -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -25897,7 +25897,13 @@ ion-navbar.toolbar {
   */
 a, p,
 	ion-card-header.card-header {
-		color: #fff!important;
+		
 		justify-content: center;
 		text-align: center;
 	}  
+  .btn-home-md{
+    width:8rem;
+}
+.home-btn .button-inner{
+  display: grid;
+}
