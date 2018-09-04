@@ -30,12 +30,12 @@
   <div padding style="text-align:center;">
     <div style="padding-left:20px;text-align:left;max-width:300px;margin: 0 auto;">
     <span id="MenuIconLoggedIn" *ngIf="homeloggedin">
-    <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;"  ion-button outline color="slave"  (click)="openWithInAppBrowser('http://ngcsmartwarga.info/kaswarga/')">
+    <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;"  ion-button outline color="slave"  (click)="goKaswarga()">
       <img ion-img src="assets/imgs/barcode.png" />
       Kas Warga
     </button>
     <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="goBayar()" >
-      <img ion-img src="assets/imgs/checklist.png"  />
+      <img ion-img src="assets/imgs/checklist.png"  /> <ion-badge item-end *ngIf="showtotalIuran">{{totalIuran}}</ion-badge>
       Konfirmasi Bayar
     </button>
     <button class="home-btn" style="width:8rem;font-size: 1rem;height:7rem;" ion-button outline color="slave" (click)="doAlert()">

@@ -102,11 +102,11 @@ export class LoginPage {
                 this.storage.set('hasLoggedIn', true);
                 // set storage token, nama, alamat, warga_id, nohp,
                 this.storage.set('tokenauth', data.data.access_token).then(()=>{
-                  console.log('token : ' + data.data.access_token)
-                  this.userData.setUserDataIntoStorage(data.data.your_id);
+                  //console.log('token : ' + data.data.access_token)
+                  this.userData.setUserDataIntoStorage(data.data.your_id, this);
                   //console.log( data["data"]["token"]);
-                  this.events.publish('user:login');
-                  this.navCtrl.setRoot(HomeTabsPage);
+                  // this.events.publish('user:login');
+                  // this.navCtrl.setRoot(HomeTabsPage);
                 });
                 
               } else{

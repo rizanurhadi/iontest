@@ -10,9 +10,11 @@ import { AboutPage } from '../pages/about/about';
 import { RegisterPage } from '../pages/register/register';
 import { HomeTabsPage } from '../pages/hometabs/hometabs';
 import { LoginPage } from '../pages/login/login';
+import { PassPage } from '../pages/pass/pass';
 
 // prov
 import { UserData } from '../providers/user-data';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,6 +27,7 @@ export class MyApp {
   pages: Array<{ title: string, component: any,logsOut?: boolean; }>;
 
   constructor(
+    private http: HttpClient,
     public toastCtrl:ToastController ,
     public events: Events,
     public menu: MenuController,
@@ -40,7 +43,7 @@ export class MyApp {
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
       this.enableMenu(hasLoggedIn === true);
     });
-
+    this.checkToken();
     
     this.listenToLoginEvents();
   }
@@ -61,8 +64,8 @@ export class MyApp {
       // Give the menu time to close before changing to logged out
       this.userData.logout();
     }
-    if(page.title == 'Login'){
-      this.nav.push(LoginPage);
+    if(page.title == 'Login' || page.title == 'Ganti Password' ){
+      this.nav.push(page.component);
     } else this.nav.setRoot(page.component);
     
   }
@@ -105,6 +108,24 @@ export class MyApp {
     toast.present();
   }
 
+  checkToken(){
+    this.storage.get("tokenauth").then((data)=>{
+      if(data){
+        let requestOptions =    {                                                                                                                                                                                 
+          headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + data
+          }), 
+        }; 
+        this.http.get(this.userData.cekapi + '/?mod=token',requestOptions)
+        .subscribe((data :any)=> {},(error : any)=>{
+          this.userData.logout();
+        })
+      } else {
+        this.userData.logout();
+      }
+    });
+  }
   enableMenu(loggedIn: boolean) {
     //this.menu.enable(loggedIn, 'loggedInMenu');
     //this.menu.enable(!loggedIn, 'loggedOutMenu');
@@ -112,6 +133,7 @@ export class MyApp {
       this.pages = [
         { title: 'Home', component: HomeTabsPage },
         { title: 'About', component: AboutPage },
+        { title: 'Ganti Password', component: PassPage },
         { title: 'Logout', component: HomeTabsPage, logsOut: true  },
       ];
     } else {

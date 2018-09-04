@@ -7,7 +7,7 @@
   <ion-content  text-center>
       <ion-card>
           <ion-card-header>
-              Masukan Informasi Pembayaran Anda
+              Masukan Konfirmasi Pembayaran Anda
             </ion-card-header>
           <ion-card-content>
               <form #bayarForm="ngForm" (ngSubmit)="submitBayar(bayarForm)" novalidate (keydown.enter)="$event.preventDefault()">
@@ -17,10 +17,14 @@
                       <ion-input type="text" value="{{userProf.nama}}" readonly></ion-input>
                     </ion-item>
                     <ion-item>
-                      <ion-label color="primary" stacked>Alamat </ion-label>
+                      <ion-label color="primary" stacked>No Rumah </ion-label>
                       <ion-input type="text" value="{{userProf.alamat}}" readonly></ion-input>
                     </ion-item>
                     <ion-input [(ngModel)]="bayar.idwrg" #idwrg="ngModel" name="idwrg" type="text" readonly hidden></ion-input>
+                    <ion-item>
+                      <ion-label color="primary" stacked>Total Tunggakan </ion-label>
+                      <ion-input type="text" value="{{totalharusbayar | currency:'IDR'}}" readonly></ion-input>
+                    </ion-item>
                     <ion-item>
                         <ion-label color="primary" stacked>Pilih Bank</ion-label>
                         <ion-select [(ngModel)]="bayar.idbank" #idbank="ngModel" name="idbank" required >

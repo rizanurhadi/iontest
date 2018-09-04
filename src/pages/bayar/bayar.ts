@@ -41,6 +41,7 @@ export interface userProfile{
     submitted = false;
     bankKeys = Object.keys;
     bankOpt = {};  
+    totalharusbayar = 0;
 
     constructor(
         private imageResizer: ImageResizer,
@@ -89,15 +90,20 @@ export interface userProfile{
       }
     // end refactoring alert and loading module
     submitBayar(form: NgForm){
-      this.submitted = true;
+      var targetPath = this.pathForImage(this.lastImage);
+      if(targetPath) {
+          this.submitted = true;
 
-      if (form.valid ) {
-        //this.bayar.warga_id = this.bayar.mst_warga_id
-        //console.log(this.bayar);
-        //this.showLoading();
-        this.userData.postBayar(this.bayar, this);
-        
-    }
+          if (form.valid ) {
+            //this.bayar.warga_id = this.bayar.mst_warga_id
+            //console.log(this.bayar);
+            //this.showLoading();
+            this.userData.postBayar(this.bayar, this);
+        }
+      } else {
+        this.showalert('Foto tidak boleh kosong');
+      }
+     
     }
 
     populateBank(){
@@ -105,13 +111,15 @@ export interface userProfile{
         this.userData.getBank(this);
     }
     populateProfile(){
-      this.storage.get('profile').then((value) => {
-        this.bayar.id_user = value["id_user"];
-        this.bayar.idwrg = value["mst_warga_id"];
-        this.userProf.nama = value["nama"];
-        this.userProf.alamat = value["alamat"];
-        console.log(value);
-        console.log(this.userProf)
+      //this.storage.get('profile').then((value) => {
+        Promise.all([this.storage.get("totaliuran"), this.storage.get("profile")]).then(values => {
+        this.bayar.id_user = values[1]["id_user"];
+        this.bayar.idwrg = values[1]["mst_warga_id"];
+        this.userProf.nama = values[1]["nama"];
+        this.userProf.alamat = values[1]["alamat"];
+        this.totalharusbayar = values[0];
+        //console.log(values[1]);
+        //console.log(this.userProf)
       });
       //console.log(this.bayar);
     }
@@ -222,7 +230,7 @@ export interface userProfile{
       fileTransfer.upload(targetPath, url, options).then(data => {
         //console.log('done')
         if(this.loading){ this.loading.dismiss(); this.loading = null; }
-        this.showalert('Image succesful uploaded. From ' + targetPath + ' <br />' + JSON.stringify(data));
+        //this.showalert('Image succesful uploaded. From ' + targetPath + ' <br />' + JSON.stringify(data));
       }, err => {
         //console.log('fail')
         if(this.loading){ this.loading.dismiss(); this.loading = null; }

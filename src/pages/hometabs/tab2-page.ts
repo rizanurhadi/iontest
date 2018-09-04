@@ -9,4 +9,8 @@ import { Component } from '@angular/core';
   </ion-header>
   <ion-content>Tab 2</ion-content>`
 })
-export class Tab2 { }
+export class Tab2 { 
+  constructor() {
+
+  }
+}

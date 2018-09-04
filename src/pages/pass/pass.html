@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>Ganti Password</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  <ion-content class="">
+    <ion-card>
+        <ion-card-content >
+          <form #passForm="ngForm" novalidate>
+            <ion-list >
+                
+              <ion-item>
+                <ion-label stacked>Old password</ion-label>
+                <ion-input [(ngModel)]="mypass.oldpass" name="oldpass" type="password" #oldpass="ngModel" required>
+                </ion-input>
+              </ion-item>
+              <p ion-text [hidden]="oldpass.valid || submitted == false" color="danger" padding-left>
+                  Oldpassword is required 
+                </p>
+              <ion-item>
+                <ion-label stacked>New Password</ion-label>
+                <ion-input [(ngModel)]="mypass.pass" name="pass" type="password" #pass="ngModel" required>
+                </ion-input>
+              </ion-item>
+              <div padding>
+              <button ion-button full color="primary"   (click)="onPass(passForm)" type="submit"> 
+                Ganti</button>
+              </div>
+      
+            </ion-list>
+            </form>
+        </ion-card-content>
+      
+      </ion-card>
+  
+</ion-content>

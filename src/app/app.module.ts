@@ -16,6 +16,7 @@ import { AboutPage } from '../pages/about/about';
 import { BayarPage } from '../pages/bayar/bayar';
 
 import { HomeTabsPage } from '../pages/hometabs/hometabs';
+import { PassPage } from '../pages/pass/pass';
 import { Tab2 } from '../pages/hometabs/tab2-page';
 
 import { UserData } from '../providers/user-data';
@@ -40,7 +41,8 @@ import {  ImageResizer  } from '@ionic-native/image-resizer';
     LoginPage,
     RegisterPage,
     AboutPage,
-    BayarPage
+    BayarPage,
+    PassPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import {  ImageResizer  } from '@ionic-native/image-resizer';
     LoginPage,
     RegisterPage,
     BayarPage,
-    AboutPage
+    AboutPage,
+    PassPage
   ],
   providers: [
     BarcodeScanner,
