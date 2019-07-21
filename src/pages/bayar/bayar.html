@@ -22,27 +22,23 @@
                     </ion-item>
                     <ion-input [(ngModel)]="bayar.idwrg" #idwrg="ngModel" name="idwrg" type="text" readonly hidden></ion-input>
                     <ion-item>
-                      <ion-label color="primary" stacked>Total Tunggakan </ion-label>
+                      <ion-label color="primary" stacked>Total Tagihan </ion-label>
                       <ion-input type="text" value="{{totalharusbayar | currency:'IDR'}}" readonly></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label color="primary" stacked>Pilih Bank</ion-label>
-                        <ion-select [(ngModel)]="bayar.idbank" #idbank="ngModel" name="idbank" required >
+                        <ion-select [(ngModel)]="bayar.idbank" #idbank="ngModel" name="idbank"  >
                             <ion-option *ngFor="let option of bankKeys(bankOpt)" [value] = "bankOpt[option]['id_bank'] ">
                                 {{ bankOpt[option]["nama_bank"] }}
                             </ion-option>
                         </ion-select>
                       </ion-item>
-                      <p ion-text [hidden]="idbank.valid || submitted == false" color="danger" padding-left>
-                        Bank is required 
-                      </p>
+                      
                     <ion-item>
-                        <ion-label color="primary" stacked>No Rekening</ion-label>
-                        <ion-input  [(ngModel)]="bayar.norek" #norek="ngModel" name="norek" required></ion-input>
+                        <ion-label color="primary" stacked>No Rekening (jika transfer)</ion-label>
+                        <ion-input  [(ngModel)]="bayar.norek" #norek="ngModel" name="norek" ></ion-input>
                     </ion-item>
-                    <p ion-text [hidden]="norek.valid || submitted == false" color="danger" padding-left>
-                        No Rekening is required 
-                      </p>
+                   
            
                     
                     <ion-item inset>

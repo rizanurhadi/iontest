@@ -91,7 +91,7 @@ export interface userProfile{
     // end refactoring alert and loading module
     submitBayar(form: NgForm){
       var targetPath = this.pathForImage(this.lastImage);
-      if(targetPath) {
+      //if(targetPath) {
           this.submitted = true;
 
           if (form.valid ) {
@@ -100,9 +100,9 @@ export interface userProfile{
             //this.showLoading();
             this.userData.postBayar(this.bayar, this);
         }
-      } else {
-        this.showalert('Foto tidak boleh kosong');
-      }
+      // } else {
+      //   this.showalert('Foto tidak boleh kosong');
+      // }
      
     }
 
